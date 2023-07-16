@@ -1,11 +1,11 @@
 # Django_project
 Django, Flask 를 이용한 수행과제
 
-1. 실행 준비
+## 1. 실행 준비
 - VSCODE 가상환경 설정 https://it4edu.tistory.com/160                                   
 - VSCODE Django 패키지 설치 https://12716.tistory.com/entry/Django-%EC%84%A4%EC%B9%98%EB%B6%80%ED%84%B0-%EA%B8%B0%EB%B3%B8-%EC%84%B8%ED%8C%85VSCODE
 
-## python venv 이용 가상환경 만들기
+### python venv 이용 가상환경 만들기
 > python -m venv (환경이름)
 
 - 인터프리터 설정(activate) :             
@@ -19,7 +19,7 @@ Django, Flask 를 이용한 수행과제
 - 가상환경 삭제 : sudo rm -rf 가상환경이름              
 
 
-## 장고 start                 
+### 장고 start                 
 가상환경폴더 안에서            
 > pip install django             
                  
