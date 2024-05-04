@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+{% load static %}
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="{% static 'blog/bootstrap/bootstrap.min.css' %}" media="screen">
+    <link rel="stylesheet" href="{% static 'blog/css/blog-post.css' %}" media="screen">
+    <title>{{post.title}}  Blog</title>
+</head>
+<body>
+<nav>
+      <a href="/blog/"> Blog </a>
+</nav>
+    <div class="col-lg-8">
+    <h1 class="mt-4">{{ post.title }}</h1>
+    <!-- Author -->
+    <p class="lead">
+        by
+        <a href="#"> 작성자명 쓸 위치 (개발예정) </a>
+    </p>
+    <hr>
+    {% if post.head_image %}
+                <img class="card-img-top" src="{{ post.head_image.url}}" alt="Card image cap">
+    {% endif %}
+    <h4>Posted on {{ post.created_at }}</h4>
+    <hr>
+
+    <p>{{ post.content  }}</p>
+    </div>
+<hr/>
+<h3> 여기 댓글이 들어올 수 있겠죠? </h3>
+</body>
+</html>
+
