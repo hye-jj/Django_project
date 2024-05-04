@@ -15,10 +15,11 @@
 
 - 비활성화 : deactivate            
 
-- 가상환경 삭제 : sudo rm -rf 가상환경이름              
+- 가상환경 삭제 : sudo rm -rf 가상환경이름 
+               
+<br>
 
-
-### 장고 start                 
+## 2. 장고 start                 
 가상환경폴더 안에서            
 > pip install django             
                  
@@ -30,9 +31,25 @@
 > cd mysite   # 폴더들어가기(manage.py 파일 있는곳)                  
 > python manage.py runserver                  
 
- 
+<br>
 
 
+## 3. 패키지 설치          
+활성화된 가상 환경에서, pip install [패키지명] 명령어를 사용하여 패키지를 설치.          
+- requirements.txt를 활용한 패키지 설치          
+- requirements.txt 파일 내의 패키지를 한번에 모두 설치할 때는,            
+  > pip install -r requirements.txt 
+  
+  명령어를 사용하여 패키지를 설치한다.            
 
+<br>
+                       
+**가상 환경 내 패키지 리스트 확인 및 requirements.txt 만들기**     
+- 가상환경 내 패키지 리스트 확인:    
+  > pip freeze      
+- 가상환경 내 패키지를 requirements.txt 만들기       
+  > pip freeze > requirements.txt
+- 가상환경 삭제하기       
+  가상 환경은 결국 폴더 형태로 저장되기 때문에, 해당 폴더를 삭제하면 가상 환경도 함께 삭제된다.
 
 

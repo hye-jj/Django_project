@@ -6,6 +6,8 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" href="{% static 'blog/bootstrap/bootstrap.min.css' %}" media="screen">
     <link rel="stylesheet" href="{% static 'blog/css/blog-post.css' %}" media="screen">
+    <script src="https://kit.fontawesome.com/726bbd6862.js" crossorigin="anonymous"></script>
+
     <title>Blog</title>
 
     
@@ -15,6 +17,8 @@
     </nav>
     
 </head>
+
+
 <body>
       <h1> Blog </h1>  
       
@@ -34,13 +38,20 @@
             {% endif %}
             <div class="card-body">
                 <h2 class="card-title">{{ p.title }}</h2>
-                <h4>{{ p.created_at }}</h4>
-                <p class="card-text">{{ p.content  }}</p>
+                {%if p.hook_text %}
+                    <!-- text_muted : 글자색 회색 -->
+                    <h5 class="text_muted">{{ p.hook_text }}</h5>
+                {% endif %}
+                    <h4>{{ p.created_at }}</h4>
+                <!-- 목록에서는 content 의 45개 단어만 보여줌 (문자는 truncatechars)-->
+                <p class="card-text">{{ p.content | truncatewords:45 }}</p>
                 <a href="{{p.get_absolute_url}}" class="btn btn-primary">Read More &rarr;</a>
             </div>
+
+
             <div class="card-footer text-muted">
-                Posted on January 1, 2017 by
-                <a href="#">Start Bootstrap</a>
+                Posted on {{ p.created_at }} by
+                <a href="#">작성자명 쓸 위치(개발예정)</a>
             </div>
         </div>
       {% endfor %}
