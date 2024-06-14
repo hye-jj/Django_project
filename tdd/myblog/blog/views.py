@@ -2,12 +2,13 @@ from django.shortcuts import render, redirect
 from django.contrib.auth.mixins import LoginRequiredMixin, UserPassesTestMixin
 from django.views.generic import ListView, DetailView, CreateView, UpdateView
 from django.shortcuts import get_object_or_404
-from .models import Post, Category, Tag, Comment
+from .models import Post, Category, Tag, Comment, Photo, Like
 from django.core.exceptions import PermissionDenied
 from django.utils.text import slugify
 from django.db.models import Q
 from .forms import CommentForm
-
+from django.contrib.auth.decorators import login_required
+from django.http import JsonResponse
 
 def tag_page(request, slug):
     tag = Tag.objects.get(slug=slug)
@@ -197,3 +198,35 @@ class PostSearch(PostList):
         context['search_info'] = f'Search: {q} ({self.get_queryset().count()})'
 
         return context
+
+
+# @login_required
+def like_photo(request, photo_id):
+    photo = get_object_or_404(Photo, id=photo_id)
+    like, created = Like.objects.get_or_create(user=request.user, photo=photo)
+    return JsonResponse({'liked': created})
+
+# @login_required
+def liked_photos(request):
+    liked_photos = Photo.objects.filter(like__user=request.user)
+    return render(request, 'liked_photos.html', {'liked_photos': liked_photos})
+
+@login_required
+def like_post(request, pk):
+    post = get_object_or_404(Post, id=pk)
+    if request.user in post.likes.all():
+        post.likes.remove(request.user)
+    else:
+        post.likes.add(request.user)
+    return redirect('post_detail', pk=pk)
+
+
+@login_required
+def liked_posts(request):
+    user = request.user
+    liked_posts = Post.objects.filter(likes=user)
+    context = {
+        'liked_posts': liked_posts
+    }
+    return render(request, 'blog/liked_posts.html', context)
+

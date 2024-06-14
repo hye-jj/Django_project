@@ -1,5 +1,6 @@
 {% extends 'blog/base.html' %}
 {% load crispy_forms_tags %}
+{% load static %}
 
 {% block head_title %}
     {{ post.title }} - Blog
@@ -78,7 +79,23 @@
     </div>
 
     <div id="comment-area">
-    <!-- Comments Form -->
+
+        {% if user.is_authenticated %}
+        
+        <p>Total Likes: {{ post.total_likes }}</p>
+
+        <form action="{% url 'like_post' post.pk %}" method="POST">
+          {% csrf_token %}
+          {% if user in post.likes.all %}
+            <button type="submit">Unlike</button>
+          {% else %}
+            <button type="submit">Like</button>
+          {% endif %}
+        </form>
+        {% endif %}
+
+
+        <!-- Comments Form -->
     <div class="card my-4">
       <h5 class="card-header">Leave a Comment:</h5>
       <div class="card-body">
@@ -153,7 +170,21 @@
           </div>
         </div>
         {% endfor %}
+
     {% endif %}
+
+
+    <!-- <p>Total Likes: {{ post.total_likes }}</p>
+
+    <form action="{% url 'like_post' post.id %}" method="POST">
+      {% csrf_token %}
+      {% if user in post.likes.all %}
+        <button type="submit">Unlike</button>
+      {% else %}
+        <button type="submit">Like</button>
+      {% endif %}
+    </form> -->
+
   </div>
   <hr />
 {% endblock %}

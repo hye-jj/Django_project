@@ -1,5 +1,5 @@
 {% extends 'blog/base.html' %}
-
+{% load static %}
 {% block main_area %}
     {% if user.is_authenticated %}
         {% if user.is_superuser or user.is_staff %}
@@ -22,11 +22,13 @@
         {% for p in post_list %}
         <!-- Blog Post -->
         <div class="card mb-4" id="post-{{ p.pk }}">
+            <div style="width: 700px; height: 150px; display: flex;  justify-content: center; overflow: hidden; align-items: center;">
             {% if p.head_image %}
-            <img class="card-img-top" src="{{ p.head_image.url }}" alt="{{ p }} head image">
+            <img class="card-img-top" src="{{ p.head_image.url }}" alt="{{ p }} head image" style="width: 100%; height: auto; object-fit: cover;">
             {% else %}
-            <img class="card-img-top" src="https://picsum.photos/seed/{{ p.id }}/800/200" alt="random image">
+            <img class="card-img-top" src="https://picsum.photos/seed/{{ p.id }}/800/200" alt="random image" style="width: 100%; height: auto; object-fit: cover;"> 
             {% endif %}
+            </div>
             <div class="card-body">
                 {% if p.category %}
                     <span class="badge badge-secondary float-right">{{ p.category }}</span>

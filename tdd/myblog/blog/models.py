@@ -4,7 +4,6 @@ from django.contrib.auth.models import User
 from markdownx.models import MarkdownxField
 from markdownx.utils import markdown
 
-
 class Tag(models.Model):
     name = models.CharField(max_length=50)
     slug = models.SlugField(max_length=200, unique=True, allow_unicode=True)
@@ -46,6 +45,9 @@ class Post(models.Model):
 
     tags = models.ManyToManyField(Tag, blank=True)
 
+    likes = models.ManyToManyField(User, related_name='liked_posts', blank=True)
+
+
     def __str__(self):
         return f'[{self.pk}]{self.title} :: {self.author}'
 
@@ -60,6 +62,10 @@ class Post(models.Model):
 
     def get_content_markdown(self):
         return markdown(self.content)
+    
+    def total_likes(self):
+        return self.likes.count()
+
 
 class Comment(models.Model):
     post = models.ForeignKey(Post, on_delete=models.CASCADE)
@@ -73,3 +79,20 @@ class Comment(models.Model):
 
     def get_absolute_url(self):
         return f'{self.post.get_absolute_url()}#comment-{self.pk}'
+    
+    
+class Post_photo(models.Model):
+    title = models.CharField(max_length=100)
+    content = models.TextField()
+    author = models.ForeignKey(User, on_delete=models.CASCADE)
+
+class Photo(models.Model):
+    post = models.ForeignKey(Post_photo, on_delete=models.CASCADE)
+    image = models.ImageField(upload_to='photos/')
+    uploaded_by = models.ForeignKey(User, on_delete=models.CASCADE, null=True)
+    uploaded_at = models.DateTimeField(auto_now=True)
+
+class Like(models.Model):
+    user = models.ForeignKey(User, on_delete=models.CASCADE)
+    photo = models.ForeignKey(Photo, on_delete=models.CASCADE)
+    photo_created_at = models.DateTimeField(auto_now=True)

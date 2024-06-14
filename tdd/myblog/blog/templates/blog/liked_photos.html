@@ -1,0 +1,16 @@
+{% extends 'blog/base.html' %}
+{% load crispy_forms_tags %}
+
+{% block head_title %}
+    {{ post.title }} - Blog
+{% endblock %}
+
+{% block main_area %}
+
+        {% for photo in liked_photos %}
+        <img src="{{ photo.image.url }}" alt="Liked Photo">
+        {% endfor %}
+
+  </div>
+  <hr />
+{% endblock %}

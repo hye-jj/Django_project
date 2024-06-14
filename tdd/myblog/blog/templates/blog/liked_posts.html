@@ -1,0 +1,20 @@
+{% extends 'blog/base.html' %}
+{% load crispy_forms_tags %}
+{% load static %}
+
+{% block main_area %}
+<div id="post-area">
+  <h1>Liked Posts</h1>
+  {% if liked_posts %}
+    <ul>
+      {% for post in liked_posts %}
+        <li>
+          <a href="{% url 'post_detail' post.pk %}">{{ post.title }}</a> by {{ post.author }}
+        </li>
+      {% endfor %}
+    </ul>
+  {% else %}
+    <p>You haven't liked any posts yet.</p>
+  {% endif %}
+</div>
+{% endblock %}

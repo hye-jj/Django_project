@@ -13,6 +13,11 @@
                     <li class="nav-item">
                         <a class="nav-link" href="/blog/"> Blog </a>
                     </li>
+                    {% if user.is_authenticated %}
+                    <li class="nav-item">
+                        <a class="nav-link" href="/blog/like/"> Like </a>
+                    </li>
+                    {% endif %}
                     <li class="nav-item">
                         <a class="nav-link" href="/about_me/">About Me</a>
                     </li>
@@ -22,21 +27,31 @@
                             Dropdown link
                         </a>
                         <div class="dropdown-menu" aria-labelledby="navbarDropdownMenuLink">
-                            <a class="dropdown-item" href="#">Action</a>
-                            <a class="dropdown-item" href="#">Another action</a>
-                            <a class="dropdown-item" href="#">Something else here</a>
+                            <a class="dropdown-item" href="https://github.com/hye-jj/"> GitHub </a>
+                            <!-- <a class="dropdown-item" href="#">Another action</a>
+                            <a class="dropdown-item" href="#">Something else here</a> -->
                         </div>
                     </li>
                 </ul>
+                {% if user.is_authenticated  %}
+                <ul class="navbar-nav ml-auto">
+                    <li class="nav-item">
+                        <a class="nav-link" href="{% url 'logout' %}">Log Out</a>
+                    </li>
+                </ul>
+                {% else %}
                 <ul class="navbar-nav ml-auto">
                     <li class="nav-item">
                         <a class="nav-link" href="#" data-toggle="modal" data-target="#loginModal">Log In</a>
                     </li>
                 </ul>
+                {% endif %}
             </div>
         </div>
     </nav>
 
+    {% if user.is_authenticated  %}
+    {% else %}
     <!-- Modal -->
     <div class="modal fade" id="loginModal" tabindex="-1" role="dialog" aria-labelledby="logInModalLabel"
         aria-hidden="true">
@@ -51,6 +66,7 @@
                 <div class="modal-body">
                     <div class="row">
                         <div class="col-md-6">
+                            <button type="button" class="btn btn-outline-dark btn-block btn-sm ""><i class=""></i><a href="{% url 'login' %}">&nbsp&nbsp Log in with ID/PW</a></button>
                             <button type="button" class="btn btn-outline-dark btn-block btn-sm "><i class="fab fa-google"></i>&nbsp&nbsp Log in with Google</button>
                             <button type="button" class="btn btn-outline-dark btn-block btn-sm "><i class="far fa-envelope"></i>&nbsp&nbsp Log in with E-mail</button>
                         </div>
@@ -65,3 +81,4 @@
             </div>
         </div>
     </div>
+    {% endif %}

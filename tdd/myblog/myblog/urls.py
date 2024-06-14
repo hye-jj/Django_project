@@ -25,6 +25,7 @@ urlpatterns = [
     path('tddapp/', include('tddapp.urls')),
     path('blog/', include('blog.urls')),
     path('', include('single_pages.urls')),
+    path('markdownx/', include('markdownx.urls')),
 ]
 
 
